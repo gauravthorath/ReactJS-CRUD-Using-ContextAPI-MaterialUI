@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { MemberContext } from "../App";
@@ -42,47 +43,57 @@ export default function Editmember(match: any) {
 
   return (
     <div>
+      <Typography
+        variant="h6"
+        component="h5"
+        color="primary"
+        gutterBottom
+        align="center"
+      >
+        Edit Member
+      </Typography>
       <table>
-        <tr>
-          <td>First Name:</td>
-          <td>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              value={member.firstName}
-              onChange={handleChange}
-            ></input>
-          </td>
-        </tr>
-        <tr>
-          <td>Last Name: </td>
-          <td>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              value={member.lastName}
-              onChange={handleChange}
-            ></input>
-          </td>
-        </tr>
-        <tr>
-          <td>Salary: </td>
-          <td>
-            <input
-              type="text"
-              id="salary"
-              name="salary"
-              value={member.salary}
-              onChange={handleChange}
-            ></input>
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>First Name:</td>
+            <td>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={member.firstName}
+                onChange={handleChange}
+              ></input>
+            </td>
+          </tr>
+          <tr>
+            <td>Last Name: </td>
+            <td>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={member.lastName}
+                onChange={handleChange}
+              ></input>
+            </td>
+          </tr>
+          <tr>
+            <td>Salary: </td>
+            <td>
+              <input
+                type="text"
+                id="salary"
+                name="salary"
+                value={member.salary}
+                onChange={handleChange}
+              ></input>
+            </td>
+          </tr>
 
-        <tr>
-          <td>
-            {/* <Link
+          <tr>
+            <td>
+              {/* <Link
               className="btnPrimary"
               to={{
                 pathname: "/memberList",
@@ -91,26 +102,27 @@ export default function Editmember(match: any) {
             >
               Update
             </Link> */}
-            <button
-              name="update"
-              value="Update"
-              onClick={handleUpdate}
-              className="btnPrimary"
-            >
-              Update
-            </button>
-          </td>
-          <td>
-            <button
-              name="back"
-              value="Back"
-              onClick={handleBack}
-              className="btnPrimary"
-            >
-              Back
-            </button>
-          </td>
-        </tr>
+              <button
+                name="update"
+                value="Update"
+                onClick={handleUpdate}
+                className="btnPrimary"
+              >
+                Update
+              </button>
+            </td>
+            <td>
+              <button
+                name="back"
+                value="Back"
+                onClick={handleBack}
+                className="btnPrimary"
+              >
+                Back
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { MemberContext } from "../App";
+import { Typography } from "@mui/material";
 
 export default function Memberlist(match: any) {
   const { members, setMembers } = useContext(MemberContext);
@@ -27,7 +28,15 @@ export default function Memberlist(match: any) {
           Add Member
         </Link>
         <br /> <br /> <br />
-        <div> Member List</div>
+        <Typography
+          variant="h6"
+          component="h5"
+          color="primary"
+          gutterBottom
+          align="center"
+        >
+          Member List
+        </Typography>
         <table>
           <thead>
             <tr>

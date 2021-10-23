@@ -9,6 +9,7 @@ import useStateHook from "./components/extra/Form/useStateHook";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import classComponentFetchData from "./components/extra/classComponentFetchData";
+import { Typography } from "@mui/material";
 export const MemberContext = createContext([] as any);
 
 export default function App() {
@@ -28,7 +29,15 @@ export default function App() {
   return (
     <div className="App">
       <MemberContext.Provider value={{ members, setMembers }}>
-        <header className="App-header">Member Portal</header>
+        <Typography
+          variant="h2"
+          component="h4"
+          color="primary"
+          gutterBottom
+          align="center"
+        >
+          Member Portal
+        </Typography>
         <Router>
           <Switch>
             <Route path="/addmember" component={Addmember} />
