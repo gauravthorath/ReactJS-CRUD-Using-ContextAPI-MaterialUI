@@ -2,6 +2,69 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { MemberContext } from "../App";
 import { Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import PreviewIcon from "@mui/icons-material/Preview";
+import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+
+const columns: GridColDef[] = [
+  { field: "id", headerName: "ID", width: 25 },
+  { field: "firstName", headerName: "First Name", width: 150 },
+  { field: "lastName", headerName: "Last Name", width: 150 },
+  { field: "salary", headerName: "Salary", width: 150 },
+  {
+    field: "View",
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(event) => {
+            console.log(cellValues);
+          }}
+        >
+          View
+        </Button>
+      );
+    },
+  },
+  {
+    field: "Edit",
+    renderCell: (cellValues) => {
+      const { row, id } = cellValues;
+      return (
+        <Link
+          to={{
+            pathname: "/editmember",
+            state: { row, id },
+          }}
+        >
+          <Button variant="outlined" startIcon={<EditIcon />}>
+            Edit
+          </Button>
+        </Link>
+      );
+    },
+  },
+  {
+    field: "Delete",
+    renderCell: (cellValues) => {
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(event) => {
+            console.log(cellValues);
+          }}
+        >
+          Delete
+        </Button>
+      );
+    },
+  },
+];
 
 export default function Memberlist(match: any) {
   const { members, setMembers } = useContext(MemberContext);
@@ -19,13 +82,17 @@ export default function Memberlist(match: any) {
       return false;
     }
   }
+
   if (members.length > 0) {
+    const rows: GridRowsProp = members;
     return (
       <div>
         <br />
-        <br />
-        <Link to="/addmember" className="btnPrimary">
-          Add Member
+        <br />{" "}
+        <Link to="/addmember">
+          <Button variant="outlined" startIcon={<AddIcon />}>
+            Add Member
+          </Button>
         </Link>
         <br /> <br /> <br />
         <Typography
@@ -37,6 +104,9 @@ export default function Memberlist(match: any) {
         >
           Member List
         </Typography>
+        <div style={{ height: 300, width: "100%" }}>
+          <DataGrid rows={rows} columns={columns} />
+        </div>
         <table>
           <thead>
             <tr>
@@ -62,7 +132,9 @@ export default function Memberlist(match: any) {
                         state: { item },
                       }}
                     >
-                      View
+                      <Button variant="outlined" startIcon={<PreviewIcon />}>
+                        View
+                      </Button>
                     </Link>
                   </td>
                   <td>
@@ -72,16 +144,19 @@ export default function Memberlist(match: any) {
                         state: { item, index },
                       }}
                     >
-                      Edit
+                      <Button variant="outlined" startIcon={<EditIcon />}>
+                        Edit
+                      </Button>
                     </Link>
                   </td>
                   <td>
-                    <button
-                      className="App-link"
+                    <Button
+                      variant="outlined"
+                      startIcon={<DeleteIcon />}
                       onClick={() => deleterecord(index, item)}
                     >
                       Delete
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               );

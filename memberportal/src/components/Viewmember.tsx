@@ -1,13 +1,17 @@
-import { Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Button, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useStyles } from "../Shared/CommonStyles";
 
 export default function Viewmember(match: any) {
   const [data, setData] = useState({
+    id: "",
     firstName: "",
     lastName: "",
     salary: "",
   });
+  const cssClass = useStyles(); // hook to access classes defined in the component
 
   let history = useHistory();
 
@@ -32,31 +36,35 @@ export default function Viewmember(match: any) {
       >
         Member Details
       </Typography>
+
       <table>
         <tbody>
           <tr>
-            <td>First Name:</td>
+            <label>First Name:</label>
             <td>{data.firstName} </td>
           </tr>
           <tr>
-            <td>Last Name: </td>
+            <label>Last Name: </label>
             <td>{data.lastName}</td>
           </tr>
           <tr>
-            <td>Salary: </td>
+            <label>Salary: </label>
             <td>${data.salary}</td>
           </tr>
 
           <tr>
             <td>
-              <button
-                name="back"
-                value="Back"
+              <Button
+                name="cancel"
+                value="Cancel"
                 onClick={handleBack}
-                className="btnPrimary"
+                variant="contained"
+                color="primary"
+                className={cssClass.btn}
+                startIcon={<ArrowBackIcon />}
               >
                 Back
-              </button>
+              </Button>
             </td>
             <td></td>
           </tr>

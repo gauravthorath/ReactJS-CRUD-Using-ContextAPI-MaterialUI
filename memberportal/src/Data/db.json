@@ -1,0 +1,16 @@
+{
+  "members": [
+    {
+      "firstName": "Rawadi",
+      "lastName": "Rathod",
+      "salary": "4000",
+      "id": 1
+    },
+    {
+      "firstName": "Baburao",
+      "lastName": "Singham",
+      "salary": "400001",
+      "id": 2
+    }
+  ]
+}

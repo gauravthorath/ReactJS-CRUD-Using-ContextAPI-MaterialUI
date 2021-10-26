@@ -1,12 +1,15 @@
-import { Typography } from "@mui/material";
-import React, { useState, useContext } from "react";
+import { Button, TextField, Typography } from "@mui/material";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-
+import SaveIcon from "@mui/icons-material/Save";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { MemberContext } from "../App";
+import { useStyles } from "../Shared/CommonStyles";
 
 export default function Addmember() {
   const { setMembers } = useContext(MemberContext); // no need to destructure member as on this page its not requried to use it from useContext
   const [member, setmember] = useState(); // Added state to create local instance of member to be added to context members on save click
+  const cssClass = useStyles(); // hook to access classes defined in the component
 
   //on each change event of input fields update a local state object member by keeping other member of a object as it is using spread operator (...)
   let handleChange = (e: any) => {
@@ -31,7 +34,7 @@ export default function Addmember() {
   };
 
   return (
-    <div>
+    <form noValidate autoComplete="off">
       <Typography
         variant="h6"
         component="h5"
@@ -41,71 +44,56 @@ export default function Addmember() {
       >
         Add Member
       </Typography>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <div>First Name:</div>
-            </td>
-            <td>
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                onChange={handleChange} // On chnage updating first name field of local member object
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div>Last Name:</div>
-            </td>
-            <td>
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                onChange={handleChange} // On chnage updating last name field of local member object
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div>Salary:</div>
-            </td>
-            <td>
-              <input
-                type="text"
-                name="salary"
-                placeholder="Salary"
-                onChange={handleChange} // On chnage updating salary field of local member object
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <button
-                name="save"
-                value="Save"
-                onClick={handleSave} //on save click called method to push local member object to context's members array
-                className="btnPrimary"
-              >
-                Save
-              </button>
-            </td>
-            <td>
-              <button
-                name="cancel"
-                value="Cancel"
-                onClick={handleBack} // send user back to members list using useHostory hook
-                className="btnPrimary"
-              >
-                Cancel
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <TextField
+        label="First Name"
+        variant="outlined"
+        required
+        fullWidth
+        className={cssClass.field}
+        name="firstName"
+        onChange={handleChange} // On chnage updating first name field of local member object
+      />
+      <TextField
+        label="Last Name"
+        variant="outlined"
+        required
+        fullWidth
+        className={cssClass.field}
+        name="lastName"
+        onChange={handleChange} // On chnage updating first name field of local member object
+      />
+      <TextField
+        label="Salary"
+        variant="outlined"
+        required
+        fullWidth
+        className={cssClass.field}
+        name="salary"
+        onChange={handleChange} // On chnage updating first name field of local member object
+      />
+
+      <Button
+        name="save"
+        value="Save"
+        onClick={handleSave}
+        variant="contained"
+        color="primary"
+        className={cssClass.btn}
+        startIcon={<SaveIcon />}
+      >
+        Save
+      </Button>
+      <Button
+        name="cancel"
+        value="Cancel"
+        onClick={handleBack}
+        variant="contained"
+        color="primary"
+        className={cssClass.btn}
+        startIcon={<ArrowBackIcon />}
+      >
+        Back
+      </Button>
+    </form>
   );
 }

@@ -1,15 +1,20 @@
-import { Typography } from "@mui/material";
-import React, { useEffect, useState, useContext } from "react";
+import { TextField, Button, Typography } from "@mui/material";
+import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { MemberContext } from "../App";
+import UpdateIcon from "@mui/icons-material/Update";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useStyles } from "../Shared/CommonStyles";
 
 export default function Editmember(match: any) {
   const { members, setMembers } = useContext(MemberContext);
   const [member, setMember] = useState({
+    id: "",
     firstName: "",
     lastName: "",
     salary: "",
   });
+  const cssClass = useStyles(); // hook to access classes defined in the component
 
   const [index, setIndex] = useState(0);
 
@@ -26,6 +31,7 @@ export default function Editmember(match: any) {
 
   let handleUpdate = () => {
     let tmpMembers = [...members];
+    tmpMembers[index].id = member.id;
     tmpMembers[index].firstName = member.firstName;
     tmpMembers[index].lastName = member.lastName;
     tmpMembers[index].salary = member.salary;
@@ -36,13 +42,13 @@ export default function Editmember(match: any) {
 
   useEffect(() => {
     if (match.location.state !== undefined) {
-      setMember(match.location.state.item);
-      setIndex(match.location.state.index);
+      setMember(match.location.state.row);
+      setIndex(match.location.state.id);
     }
   }, [match.location.state]);
 
   return (
-    <div>
+    <form noValidate autoComplete="off">
       <Typography
         variant="h6"
         component="h5"
@@ -52,48 +58,58 @@ export default function Editmember(match: any) {
       >
         Edit Member
       </Typography>
-      <table>
-        <tbody>
-          <tr>
-            <td>First Name:</td>
-            <td>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={member.firstName}
-                onChange={handleChange}
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td>Last Name: </td>
-            <td>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={member.lastName}
-                onChange={handleChange}
-              ></input>
-            </td>
-          </tr>
-          <tr>
-            <td>Salary: </td>
-            <td>
-              <input
-                type="text"
-                id="salary"
-                name="salary"
-                value={member.salary}
-                onChange={handleChange}
-              ></input>
-            </td>
-          </tr>
+      <TextField
+        label="First Name"
+        variant="outlined"
+        required
+        fullWidth
+        className={cssClass.field}
+        name="firstName"
+        value={member.firstName}
+        onChange={handleChange} // On chnage updating first name field of local member object
+      />
+      <TextField
+        label="Last Name"
+        variant="outlined"
+        required
+        fullWidth
+        className={cssClass.field}
+        name="lastName"
+        value={member.lastName}
+        onChange={handleChange} // On chnage updating first name field of local member object
+      />
+      <TextField
+        label="Salary"
+        variant="outlined"
+        required
+        fullWidth
+        className={cssClass.field}
+        name="salary"
+        value={member.salary}
+        onChange={handleChange} // On chnage updating first name field of local member object
+      />
+      <Button
+        onClick={handleUpdate}
+        variant="contained"
+        color="primary"
+        className={cssClass.btn}
+        startIcon={<UpdateIcon />}
+      >
+        Update
+      </Button>
+      <Button
+        name="cancel"
+        value="Cancel"
+        onClick={handleBack}
+        variant="contained"
+        color="primary"
+        className={cssClass.btn}
+        startIcon={<ArrowBackIcon />}
+      >
+        Back
+      </Button>
 
-          <tr>
-            <td>
-              {/* <Link
+      {/* <Link
               className="btnPrimary"
               to={{
                 pathname: "/memberList",
@@ -102,28 +118,6 @@ export default function Editmember(match: any) {
             >
               Update
             </Link> */}
-              <button
-                name="update"
-                value="Update"
-                onClick={handleUpdate}
-                className="btnPrimary"
-              >
-                Update
-              </button>
-            </td>
-            <td>
-              <button
-                name="back"
-                value="Back"
-                onClick={handleBack}
-                className="btnPrimary"
-              >
-                Back
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    </form>
   );
 }
